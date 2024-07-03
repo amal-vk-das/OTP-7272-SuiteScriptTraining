@@ -1,0 +1,17 @@
+<manifest projecttype="ACCOUNTCUSTOMIZATION">
+  <projectname>OTP-7272-SuiteScriptTraining</projectname>
+  <frameworkversion>1.0</frameworkversion>
+  <dependencies>
+    <features>
+      <feature required="false">WEBSITE</feature>
+      <feature required="false">CRM</feature>
+      <feature required="false">JOBS</feature>
+      <feature required="false">ADVANCEDJOBS</feature>
+      <feature required="false">ACCOUNTING</feature>
+    </features>
+    <objects>
+      <object>custtab_8_t1442449_680</object>
+      <object>customlist8</object>
+    </objects>
+  </dependencies>
+</manifest>

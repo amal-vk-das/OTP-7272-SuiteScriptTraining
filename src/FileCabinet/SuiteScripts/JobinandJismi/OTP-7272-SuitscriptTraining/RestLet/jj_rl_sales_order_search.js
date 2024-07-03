@@ -1,0 +1,86 @@
+/**
+ * @NApiVersion 2.1
+ * @NScriptType Restlet
+ */
+define(['N/record', 'N/search'],
+    /**
+     * @param {record} record
+     * @param {search} search
+     */
+    (record, search) => {
+        /**
+         * Defines the function that is executed when a GET request is sent to a RESTlet.
+         * @param {Object} requestParams - Parameters from HTTP request URL; parameters passed as an Object (for all supported
+         *     content types)
+         * @returns {string | Object} HTTP response body; returns a string when request Content-Type is 'text/plain'; returns an
+         *     Object when request Content-Type is 'application/json' or 'application/xml'
+         * @since 2015.2
+         */
+        const get = (requestParams) => {
+            try {
+                let searchResult = search.create({
+                    type: search.Type.SALES_ORDER,
+                    filters: [['internalid', 'anyof', requestParams.id]],
+                    columns: ['internalid', 'tranid', 'entity', 'total']
+                }).run().getRange({ start: 0, end: 1 })[0];
+
+                if (searchResult) {
+                    return {
+                        salesOrder: {
+                            id: searchResult.getValue('tranid'),
+                            customer: searchResult.getText('entity'),
+                            total: searchResult.getValue('total')
+                        }
+                    };
+                } else {
+                    return "Does not exist";
+                }
+            } catch (e) {
+                log.error({
+                    title: 'Error retrieving sales order',
+                    details: e
+                });
+                return "An error occurred while retrieving the sales order";
+            }
+        };
+
+        /**
+         * Defines the function that is executed when a PUT request is sent to a RESTlet.
+         * @param {string | Object} requestBody - The HTTP request body; request body are passed as a string when request
+         *     Content-Type is 'text/plain' or parsed into an Object when request Content-Type is 'application/json' (in which case
+         *     the body must be a valid JSON)
+         * @returns {string | Object} HTTP response body; returns a string when request Content-Type is 'text/plain'; returns an
+         *     Object when request Content-Type is 'application/json' or 'application/xml'
+         * @since 2015.2
+         */
+        const put = (requestBody) => {
+            // PUT logic here
+        };
+
+        /**
+         * Defines the function that is executed when a POST request is sent to a RESTlet.
+         * @param {string | Object} requestBody - The HTTP request body; request body is passed as a string when request
+         *     Content-Type is 'text/plain' or parsed into an Object when request Content-Type is 'application/json' (in which case
+         *     the body must be a valid JSON)
+         * @returns {string | Object} HTTP response body; returns a string when request Content-Type is 'text/plain'; returns an
+         *     Object when request Content-Type is 'application/json' or 'application/xml'
+         * @since 2015.2
+         */
+        const post = (requestBody) => {
+            // POST logic here
+        };
+
+        /**
+         * Defines the function that is executed when a DELETE request is sent to a RESTlet.
+         * @param {Object} requestParams - Parameters from HTTP request URL; parameters are passed as an Object (for all supported
+         *     content types)
+         * @returns {string | Object} HTTP response body; returns a string when request Content-Type is 'text/plain'; returns an
+         *     Object when request Content-Type is 'application/json' or 'application/xml'
+         * @since 2015.2
+         */
+        const doDelete = (requestParams) => {
+            // DELETE logic here
+        };
+
+        return { get, put, post, delete: doDelete };
+    });
