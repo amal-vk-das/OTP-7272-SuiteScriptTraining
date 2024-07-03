@@ -2,6 +2,33 @@
  * @NApiVersion 2.1
  * @NScriptType Suitelet
  */
+/**********************************************************************************
+ * OTP-7408 : External Custom Record form and actions
+ *
+ *
+ * ********************************************************************************
+ *
+ * ********************
+ * company name
+ *
+ * Author: Jobin and Jismi IT Services
+ *
+ *
+ * Date Created: 03-July-2024
+ *
+ * Description: This script is for creating a custom NetSuite record type for customer interactions, linking records by email, and sending notifications to admins and sales reps.
+ *
+ *
+ * REVISION HISTORY
+ *
+ * @version 1.0 company name: 03-July-2024: Created the initial build by JJ0351
+ *
+ *
+ *
+ **************/
+
+
+
 define(['N/email', 'N/record', 'N/runtime', 'N/search', 'N/ui/serverWidget'],
     /**
  * @param{email} email
